@@ -1,0 +1,14 @@
+h2. Todo Tutorial
+
+This tutorial takes you through the entire process of building and deploying a SproutCore application.  By the end of this tutorial you will have created:
+
+* a fully functioning SproutCore application,
+* hooked it up to a backend server,
+* localized it,
+* added some static landing pages,
+* and finally built and deployed the app to a standard Apache web server.
+
+endprologue.
+
+h3. Before You Begin
+
