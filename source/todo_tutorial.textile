@@ -72,3 +72,100 @@ Since this is your first time loading this app, it may take some time to load wh
 
 !images/todo_tutorial/step1.png!
 
+h3. Setup Your Model
+
+This todo tracker will have a simple list of tasks. You can give each task a name and choose whether the task is complete or not.  Let’s set up the model for this:
+
+<shell>
+$ sc-gen model Todos.Task
+ ~ Created directory at fixtures
+ ~ Created file at fixtures/task.js
+ ~ Created directory at models
+ ~ Created file at models/task.js
+ ~ Created directory at tests
+ ~ Created directory at tests/models
+ ~ Created file at tests/models/task.js
+
+Your model is now ready to use!
+</shell>
+
+
+Continue by configuring the task model. Tasks have two properties: a description and a completion state (isDone). In SproutCore you define this schema on your model class.
+
+Model objects are of the type +SC.Record+. To tell SproutCore about various attributes in your schema, you declare them as properties on your class.
+
+Lets add these properties to our Task subclass right now. Open up the file at +apps/todos/models/task.js+ and fill in the content of the class:
+
+<javascript>
+Todos.Task = SC.Record.extend(
+/** @scope Todos.Task.prototype */ {
+
+  isDone: SC.Record.attr(Boolean),
+  description: SC.Record.attr(String)
+
+}) ;
+</javascript>
+
+Helper methods defined in SC.Record are used to describe each data attribute of your model object. These helper methods specify the expected type (Boolean, String, etc.) as well as other constraints. These will sometimes be used to automatically convert properties you set on your record into the proper type, but most often they will be used to perform validation.
+
+In the example above, “isDone” is described as a Boolean while “description” is described as a String. SproutCore will automatically convert any values you set into these types if possible.
+
+We are almost ready to begin using our object in a live web browser Javascript console. But first, we must set up some test data for us to work with. SproutCore uses fixtures for initial testing data, which removes application dependency on server-side data and allows us developers to rapidly prototype our application. Let's do this now.
+
+Edit the task fixture file in +apps/todos/fixtures/task.js+:
+
+<javascript>
+Todos.Task.FIXTURES = [
+
+  { "guid": "task-1",
+    "description": "Build my first SproutCore app",
+    "isDone": false },
+
+  { "guid": "task-2",
+    "description": "Build a really awesome SproutCore app",
+    "isDone": false },
+
+  { "guid": "task-3",
+    "description": "Next, the world!",
+    "isDone": false }
+
+];
+</javascript>
+
+h4. Getting Down In the Console
+
+Now you should have some sample data to work with. Go to your web browser and reload the page. Nothing will look different just yet, but behind the scenes the first three task records have already been created. Open up the console in Safari (cmd + opt + c), Chrome (cmd + opt + j) or Firebug (F12) and we'll see it in action!
+
+Let’s start by finding all of the task records currently installed in the system. You can do this with the following command in the JavaScript console:
+
+<javascript>tasks = Todos.store.find(Todos.Task)</javascript>
+
+TIP: If this doesn't work try to delete the tmp folder in your app root directory and restart the server.
+
+If the application's store was connected to a server, this command would return all the tasks recorded on the server-side. However, since fixtures are currently being used, an array-like objects with static fixture data is instead returned.
+
+NOTE: You might have noticed that we said the object returned by +find()+ was not an Array exactly but "array-like". In order to support some advanced techniques for working with large data sets, SproutCore defines an interface you can use to work with arrays called +SC.Array+. This interface is added to the built-in Array object but it is also implemented by several other classes. You can work with array-like objects exactly the same as long as you use the methods defined in +SC.Array+.
+
+Let’s see if this is the data we expect.
+
+One useful method SproutCore adds to all array-like objects (including the built-in Array) is +getEach()+, which will get the property you name on each member object and return the result. We’ll use this to get the description property.
+
+TIP: When JavaScript console code is shown, the recommended command will be preceded by an +>+ and the expected output will follow without an angle bracket.
+
+<javascript>
+> tasks.getEach('description')
+["Build my first SproutCore app",
+"Build a really awesome SproutCore app",
+"Next, the world!"]
+</javascript>
+
+
+Now let’s try to get the isDone property:
+
+<javascript>
+> tasks.getEach('isDone')
+[false, false, false]
+</javascript>
+
+Now that you have created a model layer and a set of fixture data, it is time to add an interface. Discover the view building process in the next section.
+
