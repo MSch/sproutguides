@@ -10,5 +10,65 @@ This tutorial takes you through the entire process of building and deploying a S
 
 endprologue.
 
-h3. Before You Begin
+h3. Create Your Application
+
+h4. Before You Begin
+
+To run this tutorial, you will need to have your machine set up for basic SproutCore development.  You will need to install the SproutCore build tools along with some other developer tools to get the most out of your work.  You will need the following:
+
+* SproutCore 1.4.  Open your terminal and type +sudo gem install sproutcore+.
+* A web browser with dev tools. We recommend Safari 4 or later with the Develop menu enabled.  You can also use Firefox with Firebug.
+* A command line. (Like Terminal on the Mac)
+* Your favorite text editor (We like TextMate with the "SproutCore.tmbundle":http://wiki.github.com/sproutit/sproutcore-tmbundle installed).
+
+
+Optionally, you may also enjoy using "HTTP Client":http://ditchnet.org/httpclient/ on the Mac to test and debug your server-side app.  HTTP Client is a visual GUI tool for sending HTTP requests to a server.  It's a user friendly version of curl.  If you are not on a Mac or can't get this app, you can also use a web browser or curl instead.
+
+h4. Creating Your Application
+
+In this first step you are going to create a basic SproutCore application. SproutCore comes with a full set of generators that make this really easy to do.
+
+<shell>
+$ sc-init todos
+ ~ Created directory at todos
+ ~ Created file at todos/Buildfile
+ ~ Created file at todos/README
+ ~ Created directory at apps
+ ~ Created directory at apps/todos
+ ~ Created file at apps/todos/core.js
+ ~ Created file at apps/todos/main.js
+ ~ Created directory at apps/todos/resources
+ ~ Created file at apps/todos/resources/loading.rhtml
+ ~ Created file at apps/todos/resources/main_page.js
+Your new SproutCore project is ready!
+</shell>
+
+SproutCore will create a folder in your working directory called +todos+. Open up that folder and explore its contents. Most of the work in this tutorial will happen in the +apps/todos+ folder, but here's a basic rundown on the function of each file that SproutCore creates in a new application by default:
+
+|_.File|_.Purpose|
+|apps/todos/core.js|Defines app namespace and global constants|
+|apps/todos/main.js|Main function, runs on page load|
+|apps/todos/resources|all unlocalized, non-code assets go here|
+|apps/todos/resources/loading.rhtml|HTML to display while application is loading|
+|apps/todos/resources/main_page.js|UI design for the app's main page|
+|Buildfile|Config file for your project|
+
+You’ve created a basic app. Let’s load it in the browser so that you can try it out. In your terminal type the following:
+
+<shell>
+$ cd todos
+$ sc-server
+SproutCore v1.4.4 Development Server
+Starting server at http://0.0.0.0:4020 in debug mode
+To quit sc-server, press Control-C
+>> Thin web server (v1.2.7 codename No Hup)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:4020, CTRL+C to stop
+</shell>
+
+Now visit: "http://localhost:4020/todos":http://localhost:4020/todos
+
+Since this is your first time loading this app, it may take some time to load while the build tools prepare to build your app for the first time.  Once your app has loaded, however, you should see the starting "Welcome to SproutCore!" screen.  You are ready to get started!
+
+!images/todo_tutorial/step1.png!
 
